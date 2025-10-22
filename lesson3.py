@@ -1,69 +1,19 @@
-# import sys
-# from PyQt6.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QVBoxLayout
-#
-# app = QApplication(sys.argv)
-#
-# window = QWidget()
-# window.setWindowTitle("Простое окно")
-#
-# label = QLabel("Привет, PyQt6!")
-# button = QPushButton("Нажми меня")
-#
-# layout = QVBoxLayout()
-# layout.addWidget(label)
-# layout.addWidget(button)
-# window.setLayout(layout)
-#
-# window.show()
-# sys.exit(app.exec())
-#
 import sys
-from PyQt6.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QVBoxLayout
-
-class MainWindow(QWidget):
-    def __init__(self):
-        super().__init__()
-        self.setWindowTitle("Окно с декомпозицией")
-        self.init_ui()
-
-    def init_ui(self):
-        self.label = QLabel("Привет, Группа 32-1B")
-        self.button = QPushButton("Нажми меня")
-        self.button.clicked.connect(self.on_click)
-
-        layout = QVBoxLayout()
-        layout.addWidget(self.label)
-        layout.addWidget(self.button)
-        self.setLayout(layout)
-
-    def on_click(self):
-        self.label.setText("Кнопка нажата!")
-
-def main():
-    app = QApplication(sys.argv)
-    window = MainWindow()
-    window.show()
-    sys.exit(app.exec())
-
-if __name__ == "__main__":
-    main()
-
 from PyQt6.QtWidgets import (
-    QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QFormLayout,
-    QLabel, QLineEdit, QSpinBox, QComboBox, QCheckBox, QRadioButton, QButtonGroup,
-    QDateEdit, QTextEdit, QPushButton, QTableWidget, QTableWidgetItem,
+    QApplication, QMainWindow, QWidget, QVBoxLayout,
+    QHBoxLayout, QFormLayout, QLabel, QLineEdit, QSpinBox,
+    QComboBox, QCheckBox, QRadioButton, QButtonGroup, QDateEdit,
+    QTextEdit, QPushButton, QTableWidget, QTableWidgetItem,
     QFileDialog, QColorDialog, QMessageBox, QProgressBar, QStatusBar
 )
 from PyQt6.QtCore import Qt, QDate, QTimer, QRegularExpression
 from PyQt6.QtGui import QRegularExpressionValidator, QPixmap
-import sys
-
 
 class MainWindow(QMainWindow):
-    def init(self):
-        super().init()
-        self.setWindowTitle("Урок 3 — Базовые виджеты PyQt6")
-        self.resize(980, 640)
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Урок 3 - Базовые виджеты")
+        self.resize(1000, 650)
 
         central = QWidget(self)
         self.setCentralWidget(central)
@@ -75,7 +25,7 @@ class MainWindow(QMainWindow):
         form = QFormLayout()
 
         self.name_edit = QLineEdit()
-        self.name_edit.setPlaceholderText("Иван Петров")
+        self.name_edit.setPlaceholderText("Старшак Даткайым")
         reg = QRegularExpression(r"^[\p{L}\s\-]{2,40}$")
         self.name_edit.setValidator(QRegularExpressionValidator(reg))
         self.name_edit.textChanged.connect(self._on_name_changed)
@@ -113,9 +63,6 @@ class MainWindow(QMainWindow):
         self.gender_group.idToggled.connect(
             lambda i, st: st and self.status.showMessage(f"Пол: {'М' if i==1 else 'Ж'}", 1500)
         )
-        gender_box.addWidget(self.rb_m)
-        gender_box.addWidget(self.rb_f)
-        form.addRow("Пол:", QWidget().setLayout(gender_box) if False else None)  # трюк не нужен, ниже добавим иначе
 
         gender_container = QWidget()
         gender_container.setLayout(gender_box)
@@ -136,5 +83,5 @@ class MainWindow(QMainWindow):
         color_row = QHBoxLayout()
         self.color_preview = QLabel("  ")
         self.color_preview.setFixedSize(40, 20)
-        self.color_preview.setStyleSheet("background:#4caf50; border:1px solid #aaa;")
-        self.selected_color = "#4caf50"
+        self.color_preview.setStyleSheet("background:#4caf50; border-radius:1px solid #aaa;")
+        self.selected_color = "4caf50"
